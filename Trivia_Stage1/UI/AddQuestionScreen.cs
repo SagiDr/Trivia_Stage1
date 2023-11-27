@@ -12,7 +12,7 @@ namespace Trivia_Stage1.UI
 
 
         }
-
+        //
         public override void Show()
         {
             base.Show();
