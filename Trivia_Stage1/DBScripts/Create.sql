@@ -10,11 +10,13 @@ Create TABLE userDB (
 [UserName] NCHAR (20) NOT NULL,
 [UserRankID] INT NOT NULL,
 [Score] INT NOT NULL,
+[Password] NVARCHAR (20) NOT NULL,
 Primary Key ([USerID]),
 FOREIGN KEY ([UserRankID]) REFERENCES userRankDB([UserRankID])
-
 );
 Go
+
+
 
 Create TABLE questionsDB (
 [QuestionID] INT Identity(1,1) NOT NULL,
@@ -59,30 +61,91 @@ Go
 
 
 
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
+            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 5);
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
+            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 5);
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
+            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5);
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
+            ('amithacham@gmail.com', ' amitTHEKING ', 1, 5);
 
-INSERT INTO [userDB] ([UserId], [UserMail], [UserName], [UserRankID], [Score]) VALUES (111111111,'amitayzic12@gmail.com', ' amitayTHEKING ', 0, 5);
-INSERT INTO [userDB] ([UserId], [UserMail], [UserName], [UserRankID], [Score]) VALUES 
-(222222222,' sagidrori@gmail.com', ' sagiTHEKING ', 1, 5);
-INSERT INTO [userDB] ([UserId], [UserMail], [UserName], [UserRankID], [Score]) VALUES 
-(333333333, 'roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5);
-INSERT INTO [userDB] ([UserId], [UserMail], [UserName], [UserRankID], [Score]) VALUES 
-(444444444, 'amithacham@gmail.com', ' amitTHEKING ', 1, 5);
-
-
+UPDATE userDB
+set Password = 'Amitay1'
+where UserId = 1;
+UPDATE userDB
+set Password = 'Sagi1'
+where UserId = 2;
+UPDATE userDB
+set Password = 'Dayan1'
+where UserId = 3;
+UPDATE userDB
+set Password = 'Amit1'
+where UserId = 4;
 
 
 
 
 INSERT INTO [questionsDB] 
-([QuestionID], [QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(1111, 'pending', 444444444,' History ', 'When was Israel establish? ', '1948', '1946','1776','1952');
-INSERT INTO [questionsDB] ([QuestionID], [QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(2222, 'pending', 333333333,' math ', "what is a Ln? ", "A log with a e base", "monkey","modolo","a log with a 2 base");
-INSERT INTO [questionsDB] ([QuestionID], [QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(3333, 'Accepted', 111111111,' History ', "When was America establish? ", 1776, 1946,1774,1952);
-INSERT INTO [questionsDB] ([QuestionID], [QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(4444, Rejected, 222222222,' Politics ', "How many years is Bibi the prime minister of IsRAEL?  ", 16, 15,14,20);
+([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(1, 1,3, 'When was Israel establish? ', '1948', '1946','1776','1952');
+INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(2, 2, 1, 'Who won the 2022 FIFA World Cup', 'Argentina', 'France','Algeria','Portugal');
+INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(2, 3,4, 'What kills you first in the vaccum of space', 'Lack of oxygen', 'The cold','Your blood boiling','Radiation');
+INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(3, 4,5, 'Who is the principal', 'Hannah Daldi-Mandingo', 'Raheli Lizerovitz','Alex Leorian','Smadar Vechter');
 
+
+
+
+
+
+
+
+INSERT INTO [subjectDB]
+([SubjectID], [Subject]) VALUES
+(1, 'Sport')
+INSERT INTO [subjectDB]
+([SubjectID], [Subject]) VALUES
+(2, 'Politics')
+INSERT INTO [subjectDB]
+([SubjectID], [Subject]) VALUES
+(3, 'History')
+INSERT INTO [subjectDB]
+([SubjectID], [Subject]) VALUES
+(4, 'Science')
+INSERT INTO [subjectDB]
+([SubjectID], [Subject]) VALUES
+(5, 'Ramon Highschool')
+
+
+INSERT INTO [userRankDB]
+([UserRankID], [RankName]) VALUES
+(1, 'Manager')
+INSERT INTO [userRankDB]
+([UserRankID], [RankName]) VALUES
+(2, 'Master')
+INSERT INTO [userRankDB]
+([UserRankID], [RankName]) VALUES
+(3, 'Rookie')
+
+
+
+
+
+INSERT INTO [questionStatusDB]
+([QuestionStatusID], [Status]) VALUES
+(1, 'Pending')
+INSERT INTO [questionStatusDB]
+([QuestionStatusID], [Status]) VALUES
+(2, 'Accpted')
+INSERT INTO [questionStatusDB]
+([QuestionStatusID], [Status]) VALUES
+(3, 'Not Accpted')
+
+
+select * from userDB
 
 
 
