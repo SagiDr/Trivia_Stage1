@@ -19,7 +19,36 @@ namespace Trivia_Stage1.UI
         //Implememnt interface here
         public bool ShowLogin()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
+            
+            
+            Console.WriteLine("Do you want to login? If not, press (B) to go back, or anything else to continue");
+            char c = char.Parse(Console.ReadLine());
+            while(c != 'B' && c != 'b' && currentUser == null) 
+            {
+                CleareAndTtile("Login");
+                Console.WriteLine("Enter name");
+                string name = Console.ReadLine();
+
+                Console.WriteLine("Enter password");
+                string pass = Console.ReadLine();
+
+                Console.WriteLine("Enter mail");
+                string mail = Console.ReadLine();
+
+                Console.WriteLine("Logging in...");
+
+                TriviaDbContext db = new TriviaDbContext();
+                UserDb user = db.Login(name, pass, mail);
+                if(user != null)
+                {
+                    Console.WriteLine("Login Successful!");
+                    this.currentUser = user;
+                }
+                else
+                {
+                    Console.WriteLine("Failed to login");
+                }
+            }
             Console.ReadKey(true);
             return true;
         }
@@ -64,23 +93,20 @@ namespace Trivia_Stage1.UI
 
 
                 Console.WriteLine("Connecting to Server...");
-                /* Create instance of Business Logic and call the signup method
-                 * For example:
+                
                 try
                 {
-                    TriviaDBContext db = new TriviaDBContext();
-                    this.currentyPLayer = db.Signup(email, password, name);
+                    TriviaDbContext db = new TriviaDbContext();
+                    this.currentUser = db.SignUp(name, password, email);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Failed to signup! Email may already exist in DB!");
+                    Console.WriteLine(ex.Message);
                 }
                 
-                */
-
-                //Provide a proper message for example:
+                
                 Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
-                //Get another input from user
                 c = Console.ReadKey(true).KeyChar;
             }
             //return true if signup suceeded!
