@@ -59,33 +59,14 @@ Go
 
 
 
-
-
-
-
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
-            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 5);
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
-            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 5);
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
-            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5);
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score]) VALUES 
-            ('amithacham@gmail.com', ' amitTHEKING ', 1, 5);
-
-UPDATE userDB
-set Password = 'Amitay1'
-where UserId = 1;
-UPDATE userDB
-set Password = 'Sagi1'
-where UserId = 2;
-UPDATE userDB
-set Password = 'Dayan1'
-where UserId = 3;
-UPDATE userDB
-set Password = 'Amit1'
-where UserId = 4;
-
-
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score], [Password]) VALUES 
+            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 5, 'Amitay1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 5, 'Sagi1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5, 'Dayan1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('amithacham@gmail.com', ' amitTHEKING ', 1, 5, 'Amit1');
 
 
 INSERT INTO [questionsDB] 
@@ -97,10 +78,6 @@ INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [C
 (2, 3,4, 'What kills you first in the vaccum of space', 'Lack of oxygen', 'The cold','Your blood boiling','Radiation');
 INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
 (3, 4,5, 'Who is the principal', 'Hannah Daldi-Mandingo', 'Raheli Lizerovitz','Alex Leorian','Smadar Vechter');
-
-
-
-
 
 
 
@@ -133,9 +110,6 @@ INSERT INTO [userRankDB]
 (3, 'Rookie')
 
 
-
-
-
 INSERT INTO [questionStatusDB]
 ([QuestionStatusID], [Status]) VALUES
 (1, 'Pending')
@@ -146,8 +120,5 @@ INSERT INTO [questionStatusDB]
 ([QuestionStatusID], [Status]) VALUES
 (3, 'Not Accpted')
 
-
 select * from userDB
-
-
 
