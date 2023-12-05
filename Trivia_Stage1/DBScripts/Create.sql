@@ -61,10 +61,13 @@ Go
 
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score], [Password]) VALUES 
             ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 5, 'Amitay1');
+
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
             ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 5, 'Sagi1');
+
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
             ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5, 'Dayan1');
+
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
             ('amithacham@gmail.com', ' amitTHEKING ', 1, 5, 'Amit1');
 
@@ -121,4 +124,9 @@ INSERT INTO [questionStatusDB]
 (3, 'Not Accpted')
 
 select * from userDB
+
+select * from questionsDB
+
+select * from questionStatusDB
+
 

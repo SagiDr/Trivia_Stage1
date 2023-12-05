@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,33 +14,38 @@ namespace Trivia_Stage1.UI
     public class TriviaScreensImp:ITriviaScreens
     {
 
+        private TriviaDbContext context = new TriviaDbContext();
         //Place here any state you would like to keep during the app life time
         //For example, player login details...
-        private UserDb currentUser;
-
+        private DbContext db = new TriviaDbContext();
+        private UserDb currentUser = new UserDb();
         //Implememnt interface here
         public bool ShowLogin()
         {
-            
-            
             Console.WriteLine("Do you want to login? If not, press (B) to go back, or anything else to continue");
             char c = char.Parse(Console.ReadLine());
-            while(c != 'B' && c != 'b' && currentUser == null) 
+            while(c != 'B' && c != 'b' && this.currentUser == null) 
             {
                 CleareAndTtile("Login");
-                Console.WriteLine("Enter name");
-                string name = Console.ReadLine();
-
                 Console.WriteLine("Enter password");
                 string pass = Console.ReadLine();
+                while (pass == null)
+                {
+                    Console.WriteLine("write a password!");
+                    pass = Console.ReadLine();
+                }
 
                 Console.WriteLine("Enter mail");
                 string mail = Console.ReadLine();
-
+                while (mail == null)
+                {
+                    Console.WriteLine("write a password!");
+                    pass = Console.ReadLine();
+                }
                 Console.WriteLine("Logging in...");
 
                 TriviaDbContext db = new TriviaDbContext();
-                UserDb user = db.Login(name, pass, mail);
+                UserDb user = db.Login(pass, mail);
                 if(user != null)
                 {
                     Console.WriteLine("Login Successful!");
@@ -121,8 +128,32 @@ namespace Trivia_Stage1.UI
 
         public void ShowPendingQuestions()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
+            Console.WriteLine("Pending Question");
+            char c = '9';
+            foreach (QuestionsDb q in context.QuestionsDbs)
+            {
+                if (q.QuestionStatusId == 1)
+                {
+                    Console.WriteLine(q.Text);
+                    Console.WriteLine(q.CorrectAns);
+                    Console.WriteLine(q.WrongAns1);
+                    Console.WriteLine(q.WrongAns2);
+                    Console.WriteLine(q.WrongAns3);
+                    Console.WriteLine("Press 1 to accept, 2 to reject");
+
+                    while (c == '9')
+                    {
+                        c = Console.ReadKey().KeyChar;
+                        if (c == 1)
+                        { q.QuestionStatusId = 2; }
+                        else if (c == 2)
+                        { q.QuestionStatusId = 3; }
+                        else
+                        { c = '5'; }
+
+                    }
+                }
+            }
         }
         public void ShowGame()
         {

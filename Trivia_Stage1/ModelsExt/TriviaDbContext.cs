@@ -24,11 +24,11 @@ public partial class TriviaDbContext : DbContext
         return userDb;
     }
 
-    public UserDb Login(string username, string password, string usermail)
+    public UserDb Login(string password, string usermail)
     {
         foreach(UserDb user in UserDbs)
         {
-            if(user.UserName == username && user.Password == password && user.UserMail == usermail)
+            if(user.Password == password && user.UserMail == usermail)
             {
                 return user;
             }
