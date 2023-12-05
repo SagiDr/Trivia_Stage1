@@ -18,12 +18,12 @@ namespace Trivia_Stage1.UI
         //Place here any state you would like to keep during the app life time
         //For example, player login details...
         private DbContext db = new TriviaDbContext();
-        private UserDb currentUser = new UserDb();
+        private UserDb currentUser = null;
         //Implememnt interface here
         public bool ShowLogin()
         {
             Console.WriteLine("Do you want to login? If not, press (B) to go back, or anything else to continue");
-            char c = char.Parse(Console.ReadLine());
+            char c = Console.ReadKey(true).KeyChar;
             while(c != 'B' && c != 'b' && this.currentUser == null) 
             {
                 CleareAndTtile("Login");
