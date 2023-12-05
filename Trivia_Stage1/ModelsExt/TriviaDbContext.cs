@@ -35,4 +35,9 @@ public partial class TriviaDbContext : DbContext
         }
         return null;
     }
+
+    
+
+
+
 }

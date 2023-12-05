@@ -4,6 +4,27 @@ Go
 USE Trivia
 Go
 
+Create TABLE subjectDB (
+[SubjectID] int NOT NULL,
+[Subject] NVARCHAR(20) NOT NULL
+PRIMARY KEY ([SubjectID])
+);
+Go
+
+Create TABLE userRankDB (
+[UserRankID] INT NOT NULL,
+[RankName] NVARCHAR(20) NOT NULL
+PRIMARY KEY ([UserRankID])
+);
+Go
+
+Create TABLE questionStatusDB (
+[QuestionStatusID] INT NOT NULL,
+[Status] NVARCHAR(20) NOT NULL,
+PRIMARY KEY ([QuestionStatusID])
+);
+Go
+
 Create TABLE userDB (
 [UserId] INT IDENTITY (1, 1) NOT NULL,
 [UserMail] NVARCHAR(30) NOT NULL Unique,
@@ -36,26 +57,7 @@ FOREIGN KEY ([SubjectID]) REFERENCES subjectDB([SubjectID]),
 );
 Go
 
-Create TABLE subjectDB (
-[SubjectID] int NOT NULL,
-[Subject] NVARCHAR(20) NOT NULL
-PRIMARY KEY ([SubjectID])
-);
-Go
 
-Create TABLE userRankDB (
-[UserRankID] INT NOT NULL,
-[RankName] NVARCHAR(20) NOT NULL
-PRIMARY KEY ([UserRankID])
-);
-Go
-
-Create TABLE questionStatusDB (
-[QuestionStatusID] INT NOT NULL,
-[Status] NVARCHAR(20) NOT NULL,
-PRIMARY KEY ([QuestionStatusID])
-);
-Go
 
 
 
