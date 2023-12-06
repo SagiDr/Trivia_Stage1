@@ -125,13 +125,41 @@ namespace Trivia_Stage1.UI
             return (false);
         }
 
+       
         public void ShowAddQuestion()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
-        }
+            CleareAndTtile("Show Add Question");
+            TriviaDbContext db = new TriviaDbContext();
+            char c = ' ';
 
-        public void ShowPendingQuestions()
+            if (this.currentUser.Score == 100 || this.currentUser.UserId == 3)
+            {
+                QuestionsDb q = new QuestionsDb();
+                while (c != 'b' && c != 'B')
+                {
+                    Console.WriteLine("add your qustion");
+                    string Question = Console.ReadLine();
+                    q.Text = Question;
+
+                    Console.WriteLine("enter 3 wrong");
+                    string wrong1 = Console.ReadLine();
+                    q.WrongAns1 = wrong1;
+                    string wrong2 = Console.ReadLine();
+                    q.WrongAns2 = wrong2;
+                    string wrong3 = Console.ReadLine();
+                    q.WrongAns3 = wrong3;
+
+                    Console.WriteLine("ENTER RIGHT QUSTION");
+                    string right = Console.ReadLine();
+                    q.CorrectAns = right;
+                    db.EnterQustion(q);
+
+                    Console.WriteLine("press (B)ack to go back to menu");
+                    c = Console.ReadKey(true).KeyChar;
+                }
+            }
+        }
+            public void ShowPendingQuestions()
         {
             Console.WriteLine("Pending Question");
             char c = '9';

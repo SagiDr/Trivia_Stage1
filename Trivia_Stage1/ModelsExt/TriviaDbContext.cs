@@ -41,4 +41,9 @@ public partial class TriviaDbContext : DbContext
     Entry(p).State = EntityState.Modified;
     SaveChanges();
     }
+    public void EnterQustion(QuestionsDb Question)
+    {
+        Entry(Question).State = EntityState.Added;
+        SaveChanges();
+    }
 }
