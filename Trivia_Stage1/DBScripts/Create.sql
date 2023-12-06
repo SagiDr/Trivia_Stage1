@@ -57,6 +57,36 @@ FOREIGN KEY ([SubjectID]) REFERENCES subjectDB([SubjectID]),
 );
 Go
 
+
+
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score], [Password]) VALUES 
+            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 5, 'Amitay1');
+
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 5, 'Sagi1');
+
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5, 'Dayan1');
+
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('amithacham@gmail.com', ' amitTHEKING ', 1, 5, 'Amit1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('a@a.com', ' a ', 1, 5, 'a');
+
+
+INSERT INTO [questionsDB] 
+([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(1, 1,3, 'When was Israel establish? ', '1948', '1946','1776','1952');
+INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(2, 2, 1, 'Who won the 2022 FIFA World Cup', 'Argentina', 'France','Algeria','Portugal');
+INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(2, 3,4, 'What kills you first in the vaccum of space', 'Lack of oxygen', 'The cold','Your blood boiling','Radiation');
+INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
+(3, 4,5, 'Who is the principal', 'Hannah Daldi-Mandingo', 'Raheli Lizerovitz','Alex Leorian','Smadar Vechter');
+
+
+
+
 INSERT INTO [subjectDB]
 ([SubjectID], [Subject]) VALUES
 (1, 'Sport')

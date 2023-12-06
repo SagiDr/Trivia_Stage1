@@ -11,7 +11,7 @@ using Trivia_Stage1.Models;
 
 namespace Trivia_Stage1.UI
 {
-    public class TriviaScreensImp:ITriviaScreens
+    public class TriviaScreensImp : ITriviaScreens
     {
 
         private TriviaDbContext context = new TriviaDbContext();
@@ -22,13 +22,20 @@ namespace Trivia_Stage1.UI
         //Implememnt interface here
         public bool ShowLogin()
         {
-            
-            Console.WriteLine("Do you want to login? If not, press (B) to go back, or anything else to continue");
+
+            Console.WriteLine("Do you want to login? press Enter or anything else to continue If not, press (B) to go back");
             char c = Console.ReadKey(true).KeyChar;
-            
-            while (c != 'B' && c != 'b' && this.currentUser == null) 
+
+            while (c != 'B' && c != 'b' && this.currentUser == null)
             {
                 CleareAndTtile("Login");
+                Console.WriteLine("Enter mail");
+                string mail = Console.ReadLine();
+                while (mail == null)
+                {
+                    Console.WriteLine("write a password!");
+                    mail = Console.ReadLine();
+                }
                 Console.WriteLine("Enter password");
                 string pass = Console.ReadLine();
                 while (pass == null)
@@ -37,18 +44,12 @@ namespace Trivia_Stage1.UI
                     pass = Console.ReadLine();
                 }
 
-                Console.WriteLine("Enter mail");
-                string mail = Console.ReadLine();
-                while (mail == null)
-                {
-                    Console.WriteLine("write a password!");
-                    pass = Console.ReadLine();
-                }
+               
                 Console.WriteLine("Logging in...");
 
                 TriviaDbContext db = new TriviaDbContext();
                 UserDb user = db.Login(pass, mail);
-                if(user != null)
+                if (user != null)
                 {
                     Console.WriteLine("Login Successful!");
                     this.currentUser = user;
@@ -104,7 +105,7 @@ namespace Trivia_Stage1.UI
 
 
                 Console.WriteLine("Connecting to Server...");
-                
+
                 try
                 {
                     TriviaDbContext db = new TriviaDbContext();
@@ -115,8 +116,8 @@ namespace Trivia_Stage1.UI
                     Console.WriteLine("Failed to signup! Email may already exist in DB!");
                     Console.WriteLine(ex.Message);
                 }
-                
-                
+
+
                 Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
                 c = Console.ReadKey(true).KeyChar;
             }
@@ -124,6 +125,7 @@ namespace Trivia_Stage1.UI
             return (false);
         }
 
+       
         public void ShowAddQuestion()
         {
             Console.WriteLine("Do you want to manage the questions? If not, press (B) to go back, or anything else to continue");
@@ -276,47 +278,124 @@ namespace Trivia_Stage1.UI
         }
         public void ShowGame()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
-
-
-
-
-
+            TriviaDbContext db = new TriviaDbContext();
+            foreach (QuestionsDb q in context.QuestionsDbs)
+            {
+                //Print Question
+                Console.WriteLine("Enter The num of your Ans: ");
+                int User_ans = int.Parse(Console.ReadLine());
+                if (User_ans == 1)
+                {
+                    Console.WriteLine("You are correct!");
+                    currentUser.Score += 10;
+                }
+                else
+                {
+                    Console.WriteLine("You are incorrect!");
+                    currentUser.Score -= 5;
+                }
+            }
         }
         public void ShowProfile()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
+            CleareAndTtile("PROFILE");
+            TriviaDbContext db = new TriviaDbContext();
+            char c = ' ';
+
+            while (c != 'b' && c != 'B')
+            {
+                if (currentUser == null)
+                {
+                    Console.WriteLine("Log in first!");
+                    Console.ReadKey(true);
+                    return;
+                }
+                Console.WriteLine($"Name: {this.currentUser.UserName}");
+                Console.WriteLine($"Mail: {this.currentUser.UserMail}");
+                Console.WriteLine($"Passworde: {this.currentUser.Password}");
+                Console.WriteLine($"Player Id: {this.currentUser.UserId}");
+                Console.WriteLine($"Score: {this.currentUser.Score}");
+
+                Console.WriteLine("Update (M)ail, (N)ame, (P)assword, (B)ack... press Enter every time your update somthing");
+                c = Console.ReadKey(true).KeyChar;
+                bool updated = false;
+                if (c == 'm' || c == 'M')
+                {
+                    Console.WriteLine("Enter youre new Email");
+                    string? mail = Console.ReadLine();
+                    while (!IsEmailValid(mail))
+                    {
+                        Console.Write("Bad Email Format! Please try again:");
+                        mail = Console.ReadLine();
+                    }
+                    this.currentUser.UserMail = mail;
+                    updated = true;
+                }
+                if (c == 'n' || c == 'N')
+                {
+                    Console.WriteLine("Enter your new name");
+                    string? name = Console.ReadLine();
+                    while (!IsNameValid(name))
+                    {
+                        Console.Write("name must be at least 3 characters! Please try again: ");
+                        name = Console.ReadLine();
+                    }
+                    this.currentUser.UserName = name;
+                    updated = true;
+                }
+                if (c == 'p' || c == 'P')
+                {
+                    Console.Write("Please Type your password: ");
+                    string? password = Console.ReadLine();
+                    while (!IsPasswordValid(password))
+                    {
+                        Console.Write("password must be at least 4 characters! Please try again: ");
+                        password = Console.ReadLine();
+                    }
+                    this.currentUser.UserName = password;
+                    updated = true;
+                }
+                if (updated == true)
+                {
+                    try
+                    {
+                        db.UpdatePlayer(this.currentUser);
+                        Console.WriteLine("your changes succeeded");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Failed changes!");
+                    }
+                }
+                Console.ReadKey(true);
+
+            }
         }
 
         //Private helper methodfs down here...
         private void CleareAndTtile(string title)
-        {
-            Console.Clear();
-            Console.WriteLine($"\t\t\t\t\t{title}");
-            Console.WriteLine();
-        }
+                {
+                    Console.Clear();
+                    Console.WriteLine($"\t\t\t\t\t{title}");
+                    Console.WriteLine();
+                }
 
-        private bool IsEmailValid(string emailAddress)
-        {
-            var pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+                private bool IsEmailValid(string emailAddress)
+                {
+                    var pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
 
-            var regex = new Regex(pattern);
-            return regex.IsMatch(emailAddress);
-        }
+                    var regex = new Regex(pattern);
+                    return regex.IsMatch(emailAddress);
+                }
 
-        private bool IsPasswordValid(string password)
-        {
-            return password != null && password.Length >= 3;
-        }
+                private bool IsPasswordValid(string password)
+                {
+                    return password != null && password.Length >= 3;
+                }
 
-        private bool IsNameValid(string name)
-        {
-            return name != null && name.Length >= 3;
-        }
-
-    
-
+                private bool IsNameValid(string name)
+                {
+                    return name != null && name.Length >= 3;
+                }      
     }
 }
