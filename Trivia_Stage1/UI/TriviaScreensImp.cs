@@ -190,8 +190,23 @@ namespace Trivia_Stage1.UI
         }
         public void ShowGame()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
+            TriviaDbContext db = new TriviaDbContext();
+            foreach (QuestionsDb q in context.QuestionsDbs)
+            {
+                //Print Question
+                Console.WriteLine("Enter The num of your Ans: ");
+                int User_ans = int.Parse(Console.ReadLine());
+                if (User_ans == 1)
+                {
+                    Console.WriteLine("You are correct!");
+                    currentUser.Score += 10;
+                }
+                else
+                {
+                    Console.WriteLine("You are incorrect!");
+                    currentUser.Score -= 5;
+                }
+            }
         }
         public void ShowProfile()
         {
