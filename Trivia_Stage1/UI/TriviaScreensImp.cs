@@ -126,12 +126,127 @@ namespace Trivia_Stage1.UI
 
         public void ShowAddQuestion()
         {
-            Console.WriteLine("Not implemented yet! Press any key to continue...");
-            Console.ReadKey(true);
-        }
+            Console.WriteLine("Do you want to manage the questions? If not, press (B) to go back, or anything else to continue");
+            char c = Console.ReadKey(true).KeyChar;
 
+            while (c != 'B' && c != 'b' && this.currentUser.UserRankId == 1)
+            {
+                foreach (QuestionsDb q in context.QuestionsDbs)
+                {
+                    Console.WriteLine("Question Number : "+q.QuestionId);
+                    Console.WriteLine(q.Subject);
+                    Console.WriteLine(q.Text);
+                }
+
+                Console.WriteLine("Would you like to change a question? press (B) to go back, or anything else to continue");
+                c = Console.ReadKey(true).KeyChar;
+                while (c != 'B' && c != 'b')
+                {
+                    Console.WriteLine("Insert the question number of the question you would like to change");
+                    int input = int.Parse(Console.ReadLine());
+                    QuestionsDb quest = null;
+                    foreach (QuestionsDb q in context.QuestionsDbs)
+                    {
+                        if (q.QuestionId == input)
+                        {
+                            quest = q;
+                            break;
+                        }
+                    }
+                    if (quest != null)
+                        quest?.PrintQuestion();
+                    else
+                    {
+                        Console.WriteLine("No Question Found");
+                    }
+                    Console.WriteLine("What would you like to change? 1-[SubjectID],2-[Text],3-[CorrectAns]," +
+                        "4-[WrongAns1],5-[WrongAns2],6-[WrongAns3]");
+                    int num = int.Parse(Console.ReadLine());
+                    Console.WriteLine("What would you like to enter");
+                    string str = Console.ReadLine();
+                    bool b = true;
+                    while (num != null && str != null)
+                    {
+                        if (num == 1)
+                        {
+                            if (str == "Sport")
+                            {
+                                quest.SubjectId = 1;
+                                
+                            }
+                           else if (str == "Politics")
+                            {
+                                quest.SubjectId = 2;
+                                
+                            }
+                            else if (str == "History")
+                            {
+                                
+                                quest.SubjectId = 3;
+                            }
+                            else if (str == "Science")
+                            {
+                                
+                                quest.SubjectId = 4;
+                            }
+                            else if (str == "Ramon Highschool")
+                            {
+                                quest.SubjectId = 5;
+                                
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid Subject");
+                                b = false;
+                                break;
+                            }
+                        }
+                        else if (num == 2)
+                            quest.Text = str;
+
+                        else if (num == 3)
+                            quest.CorrectAns = str;
+
+                        else if (num == 4)
+                            quest.WrongAns1 = str;
+                        else if (num == 5)
+                            quest.WrongAns2 = str;
+                        else if (num == 6)
+                            quest.WrongAns3 = str;
+
+                        foreach (QuestionsDb q in context.QuestionsDbs)
+                        {
+                            if (q.QuestionId == quest.QuestionId)
+                            {
+                                quest = q;
+                                break;
+                            }
+                        }
+                    }
+                
+
+
+
+
+
+
+
+                    
+                }
+                CleareAndTtile("");
+                Console.WriteLine("Would you like to add a question? Press (B) to go back, " +
+                "or anything else to continue");
+                c = Console.ReadKey(true).KeyChar;
+                while( c !='B' && c!= 'b')
+                {
+
+                }
+
+            }
+        }
         public void ShowPendingQuestions()
         {
+                if(this.currentUser.UserRankId == 1 || this.currentUser.UserRankId == 2)
             Console.WriteLine("Pending Question");
             char c = '9';
             foreach (QuestionsDb q in context.QuestionsDbs)
@@ -163,6 +278,11 @@ namespace Trivia_Stage1.UI
         {
             Console.WriteLine("Not implemented yet! Press any key to continue...");
             Console.ReadKey(true);
+
+
+
+
+
         }
         public void ShowProfile()
         {
