@@ -224,16 +224,7 @@ namespace Trivia_Stage1.UI
                                 break;
                             }
                         }
-                    }
-                
-
-
-
-
-
-
-
-                    
+                    } 
                 }
                 CleareAndTtile("");
                 Console.WriteLine("Would you like to add a question? Press (B) to go back, " +
@@ -243,7 +234,6 @@ namespace Trivia_Stage1.UI
                 {
 
                 }
-
             }
         }
         public void ShowPendingQuestions()
@@ -281,7 +271,7 @@ namespace Trivia_Stage1.UI
             TriviaDbContext db = new TriviaDbContext();
             foreach (QuestionsDb q in context.QuestionsDbs)
             {
-                //Print Question
+                q.gamePrintQuestion();
                 Console.WriteLine("Enter The num of your Ans: ");
                 int User_ans = int.Parse(Console.ReadLine());
                 if (User_ans == 1)

@@ -105,6 +105,8 @@ INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) 
 
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
             ('amithacham@gmail.com', ' amitTHEKING ', 1, 5, 'Amit1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
+            ('a@a.com', ' a ', 1, 5, 'aa');
 Go
 
 
