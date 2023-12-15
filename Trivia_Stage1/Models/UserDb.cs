@@ -22,8 +22,23 @@ public partial class UserDb
     [Column("UserRankID")]
     public int UserRankId { get; set; }
 
-    public int Score { get; set; }
 
+    private int _score;
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score += value;
+            if (_score > 100)
+            {
+                _score = 100;
+            }
+        }
+    }
     [Column("password")]
     [StringLength(50)]
     public string? Password { get; set; }

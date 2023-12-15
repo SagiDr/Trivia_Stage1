@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Threading.Channels;
 using Microsoft.EntityFrameworkCore;
 using Trivia_Stage1.UI;
 
@@ -76,4 +77,6 @@ public partial class TriviaDbContext : DbContext
         }
         return false;
     }
+
+    
 }

@@ -123,18 +123,17 @@ namespace Trivia_Stage1.UI
             bool gate = true;
             while (c != 'B' && c != 'b' && gate)
             {
-                TriviaDbContext context = new TriviaDbContext();
-                QuestionsDb.PrintAllQuestions(context);
-
                 while (true)
                 {
-                    Console.WriteLine("Would you like to Edit a question? Press (s) to skip " +
-                    "or anything else to continue");
                     char sg = Console.ReadKey(true).KeyChar;
-                    if ((sg == 'S') || (sg == 's')|| this.currentUser.UserRankId != 1)
+                    if ((sg == 'S') || (sg == 's') || this.currentUser.UserRankId != 1)
                     {
                         break;
                     }
+                    TriviaDbContext context = new TriviaDbContext();
+                    QuestionsDb.PrintAllQuestions(context);
+                    Console.WriteLine("Would you like to Edit a question? Press (s) to skip " +
+                    "or anything else to continue");
                     Console.WriteLine("Insert the question number of the question you would like to change");
                     int input = int.Parse(Console.ReadLine());
                     QuestionsDb quest = null; 
@@ -214,16 +213,15 @@ namespace Trivia_Stage1.UI
 
                 while (true)
                 {
-                    Console.WriteLine("Would you like to add a question? Press (s) to skip " +
-                    "or anything else to continue");
-                    char sg = Console.ReadKey(true).KeyChar;
-                    if ((sg == 'S') || (sg == 's'))
-                    {
-                        gate = false;
-                        break;
-                    }
-                    QuestionsDb q = new QuestionsDb();
-                    q.AddQuestion(currentUser, context);
+                   Console.WriteLine("Would you like to add a question? Press (b) to get back" + " or anything else to continue");
+                   char sg = Console.ReadKey(true).KeyChar; 
+                   if ((sg == 'B') || (sg == 'b'))
+                   {
+                       gate = false;
+                       break;
+                   }
+                   QuestionsDb q = new QuestionsDb();
+                   q.AddQuestion(currentUser, context);
                 }
             }
         }
@@ -278,8 +276,7 @@ namespace Trivia_Stage1.UI
                     {
                         if (context.canAddQuestion(currentUser))
                         {
-                            currentUser.Score -= 100;
-                            
+                            currentUser.Score -= 100; 
                         }
                     }
                 }
@@ -309,6 +306,8 @@ namespace Trivia_Stage1.UI
                     Console.ReadKey(true);
                     return;
                 }
+
+                Console.WriteLine($"Rank: {RankName(currentUser)}");
                 Console.WriteLine($"Name: {this.currentUser.UserName}");
                 Console.WriteLine($"Mail: {this.currentUser.UserMail}");
                 Console.WriteLine($"Passworde: {this.currentUser.Password}");
@@ -370,7 +369,21 @@ namespace Trivia_Stage1.UI
 
             }
         }
-
+        public string RankName(UserDb U)
+        {
+            if (U.UserRankId.Equals(1))
+            {
+                return "Manager";
+            }
+            else if (U.UserRankId.Equals(2))
+            {
+                return "Master";
+            }
+            else
+            {
+                return "Rookie";
+            }
+        }
         //Private helper methodfs down here...
         private void CleareAndTtile(string title)
         {

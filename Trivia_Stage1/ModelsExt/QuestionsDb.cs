@@ -60,7 +60,19 @@ public partial class QuestionsDb
 
         Console.WriteLine("Enter the third wrong answer");
         wAns3 = Console.ReadLine();
-        
+
+
+        int status;
+        if (user.UserRankId == 3)
+        {
+            status = 1;
+        }
+        else
+        {
+            status = 2;
+        }
+
+
         QuestionsDb Q = new QuestionsDb();
         {
             Q.Text = text;
@@ -69,7 +81,7 @@ public partial class QuestionsDb
             Q.WrongAns2 = WrongAns2;
             Q.WrongAns3 = WrongAns3;
             Q.SubjectId = subId;
-            Q.QuestionStatusId = 1;
+            Q.QuestionStatusId = status;
             Q.UserId = user.UserId;
         }
         context.QuestionsDbs.Add(Q);
@@ -127,13 +139,16 @@ public partial class QuestionsDb
         List<QuestionsDb> Quests = context.QuestionsDbs.Include(q => q.Subject).ToList();
         foreach (QuestionsDb q in Quests)
         {
-            counter++;
-            Console.WriteLine("");
-            Console.WriteLine("Question number: " + counter);
-            Console.WriteLine("");
-            q.PrintQuestion();
-            int delay = 300;
-            Thread.Sleep(delay);
+            if (q.QuestionStatusId == 2)
+            {
+                counter++;
+                Console.WriteLine("");
+                Console.WriteLine("Question number: " + counter);
+                Console.WriteLine("");
+                q.PrintQuestion();
+                int delay = 300;
+                Thread.Sleep(delay);
+            }
         }
     }
 }

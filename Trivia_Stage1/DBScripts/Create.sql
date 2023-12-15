@@ -98,27 +98,27 @@ INSERT INTO [questionStatusDB]
 Go
 
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score], [Password]) VALUES 
-            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 5, 'Amitay1');
+            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 0, 'Amitay1');
 
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 5, 'Sagi1');
+            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 0, 'Sagi1');
 
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 5, 'Dayan1');
+            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 0, 'Dayan1');
 
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('amithacham@gmail.com', ' amitTHEKING ', 1, 5, 'Amit1');
+            ('amithacham@gmail.com', ' amitTHEKING ', 1, 0, 'Amit1');
 INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('a@a.com', ' a ', 1, 5, 'aa');
+            ('a@a.com', ' a ', 1, 0, 'aa');
 Go
 
 UPDATE userDB
-SET UserRankID = 3
-WHERE UserId = 5;
+SET Score = 0;
+
 
 UPDATE userDB
 SET Score = 100
-WHERE UserId = 2; 
+WHERE UserId = 11; 
 
 
 INSERT INTO [questionsDB] 

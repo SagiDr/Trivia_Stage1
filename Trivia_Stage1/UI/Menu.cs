@@ -17,7 +17,6 @@ namespace Trivia_Stage1.UI
             Screen = screen;
         }
     }
-
     class Menu:Screen
     {
         //List contains all menu items
