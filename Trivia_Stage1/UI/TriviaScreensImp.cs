@@ -16,7 +16,7 @@ namespace Trivia_Stage1.UI
         private TriviaDbContext context = new TriviaDbContext();
         private DbContext db = new TriviaDbContext();
         private UserDb currentUser = null;
-        public bool ShowLogin()
+        public bool ShowLogin()//פעולה שמבצעת את תהליך הכניסה למשתמש
         {
             Console.WriteLine("Do you want to login? press Enter or anything else to continue If not, press (B) to go back");
             char c = Console.ReadKey(true).KeyChar;
@@ -62,7 +62,7 @@ namespace Trivia_Stage1.UI
             Console.ReadKey(true);
             return true;
         }
-        public bool ShowSignup()
+        public bool ShowSignup() // פעולה שמבצעת את תהליך ההרשמה
         {
             this.currentUser = null;
             char c = ' ';
@@ -111,12 +111,11 @@ namespace Trivia_Stage1.UI
                 Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
                 c = Console.ReadKey(true).KeyChar;
             }
-            //return true if signup suceeded!
             return (true);
         }
 
 
-        public void ShowAddQuestion()
+        public void ShowAddQuestion() //מסך המאפשר למשתמש לנהל את מאגר השאלות
         {
             Console.WriteLine("Do you want to manage the questions? If not, press (B) to go back, or anything else to continue");
             char c = Console.ReadKey(true).KeyChar;
@@ -225,7 +224,7 @@ namespace Trivia_Stage1.UI
                 }
             }
         }
-        public void ShowPendingQuestions()
+        public void ShowPendingQuestions()//פעולה שמראה למנהלים את השאלות שמחכות לאישור ונותנת לאשר או לפסול את השאלות
         {
                 if(this.currentUser.UserRankId == 1 || this.currentUser.UserRankId == 2)
             Console.WriteLine("Pending Question");
@@ -255,7 +254,7 @@ namespace Trivia_Stage1.UI
                 }
             }
         }
-        public void ShowGame()
+        public void ShowGame() // פעולה שמדמה את משחק הטריווה
         {
             TriviaDbContext db = new TriviaDbContext();
             List<QuestionsDb> Quests = context.QuestionsDbs.Include(q => q.Subject).ToList();
@@ -276,7 +275,8 @@ namespace Trivia_Stage1.UI
                     {
                         if (context.canAddQuestion(currentUser))
                         {
-                            currentUser.Score -= 100; 
+                            currentUser.Score = 0;
+                            ShowAddQuestion();
                         }
                     }
                 }
@@ -292,7 +292,7 @@ namespace Trivia_Stage1.UI
                 Thread.Sleep(delay);
             }
         }
-        public void ShowProfile()
+        public void ShowProfile() // פעולה שמראה את פרטי המשתמש
         {
             CleareAndTtile("PROFILE");
             TriviaDbContext db = new TriviaDbContext();
@@ -369,7 +369,7 @@ namespace Trivia_Stage1.UI
 
             }
         }
-        public string RankName(UserDb U)
+        public string RankName(UserDb U) // פעולה שמתאימה בין דרגת המשתמש בכתב לדרגה המספרית
         {
             if (U.UserRankId.Equals(1))
             {
