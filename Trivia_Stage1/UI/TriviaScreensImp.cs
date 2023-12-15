@@ -13,13 +13,9 @@ namespace Trivia_Stage1.UI
 {
     public class TriviaScreensImp : ITriviaScreens
     {
-
         private TriviaDbContext context = new TriviaDbContext();
-        //Place here any state you would like to keep during the app life time
-        //For example, player login details...
         private DbContext db = new TriviaDbContext();
         private UserDb currentUser = null;
-        //Implememnt interface here
         public bool ShowLogin()
         {
 
@@ -66,7 +62,7 @@ namespace Trivia_Stage1.UI
         }
         public bool ShowSignup()
         {
-            //Logout user if anyone is logged in!
+
             //A reference to the logged in user should be stored as a member variable
             //in this class! Example:
             this.currentUser = null;
@@ -125,25 +121,31 @@ namespace Trivia_Stage1.UI
             return (false);
         }
 
-       
+
         public void ShowAddQuestion()
         {
             Console.WriteLine("Do you want to manage the questions? If not, press (B) to go back, or anything else to continue");
             char c = Console.ReadKey(true).KeyChar;
-
-            while (c != 'B' && c != 'b' && this.currentUser.UserRankId == 1)
+            bool gate = true;
+            while (c != 'B' && c != 'b' && this.currentUser.UserRankId == 1 && gate)
             {
                 foreach (QuestionsDb q in context.QuestionsDbs)
                 {
-                    Console.WriteLine("Question Number : "+q.QuestionId);
+                    Console.WriteLine("Question Number : " + q.QuestionId);
                     Console.WriteLine(q.Subject);
                     Console.WriteLine(q.Text);
                 }
 
-                Console.WriteLine("Would you like to change a question? press (B) to go back, or anything else to continue");
-                c = Console.ReadKey(true).KeyChar;
-                while (c != 'B' && c != 'b')
+
+                while (true)
                 {
+                    Console.WriteLine("Would you like to Edit a question? Press (s) to skip " +
+                    "or anything else to continue");
+                    char sg = Console.ReadKey(true).KeyChar;
+                    if ((sg == 'S') || (sg == 's'))
+                    {
+                        break;
+                    }
                     Console.WriteLine("Insert the question number of the question you would like to change");
                     int input = int.Parse(Console.ReadLine());
                     QuestionsDb quest = null;
@@ -174,27 +176,27 @@ namespace Trivia_Stage1.UI
                             if (str == "Sport")
                             {
                                 quest.SubjectId = 1;
-                                
+
                             }
-                           else if (str == "Politics")
+                            else if (str == "Politics")
                             {
                                 quest.SubjectId = 2;
-                                
+
                             }
                             else if (str == "History")
                             {
-                                
+
                                 quest.SubjectId = 3;
                             }
                             else if (str == "Science")
                             {
-                                
+
                                 quest.SubjectId = 4;
                             }
                             else if (str == "Ramon Highschool")
                             {
                                 quest.SubjectId = 5;
-                                
+
                             }
                             else
                             {
@@ -224,14 +226,73 @@ namespace Trivia_Stage1.UI
                                 break;
                             }
                         }
-                    } 
+                    }
                 }
                 CleareAndTtile("");
-                Console.WriteLine("Would you like to add a question? Press (B) to go back, " +
-                "or anything else to continue");
-                c = Console.ReadKey(true).KeyChar;
-                while( c !='B' && c!= 'b')
+
+                while (true)
                 {
+                    Console.WriteLine("Would you like to add a question? Press (s) to skip " +
+                    "or anything else to continue");
+                    char sg = Console.ReadKey(true).KeyChar;
+                    if ((sg == 'S') || (sg == 's'))
+                    {
+                        gate = false;
+                        break;
+                    }
+                    string text, corAns, wAns1, wAns2, wAns3;
+                    int subId;
+
+
+                    Console.WriteLine("Enter a question's subject");
+                    string str = Console.ReadLine();
+                    if (str == "Sport")
+                    {
+                        subId = 1;
+                    }
+                    else if (str == "Politics")
+                    {
+                        subId = 2;
+                    }
+                    else if (str == "History")
+                    {
+
+                        subId = 3;
+                    }
+                    else if (str == "Science")
+                    {
+
+                        subId = 4;
+                    }
+                    else if (str == "Ramon Highschool")
+                    {
+                        subId = 5;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Subject");
+                        subId = 6;
+                    }
+
+
+
+                    Console.WriteLine("Enter the question itself");
+                    text = Console.ReadLine();
+
+                    Console.WriteLine("Enter the correct answer");
+                    corAns = Console.ReadLine();
+
+                    Console.WriteLine("Enter the first wrong answer");
+                    wAns1 = Console.ReadLine();
+
+                    Console.WriteLine("Enter the second wrong answer");
+                    wAns2 = Console.ReadLine();
+
+                    Console.WriteLine("Enter the third wrong answer");
+                    wAns3 = Console.ReadLine();
+
+                    QuestionsDb q = new QuestionsDb();
+                    q.AddQuestion(currentUser, text, corAns, wAns1, wAns2, wAns3, subId, context);
 
                 }
             }
@@ -274,7 +335,7 @@ namespace Trivia_Stage1.UI
                 q.gamePrintQuestion();
                 Console.WriteLine("Enter The num of your Ans: ");
                 int User_ans = int.Parse(Console.ReadLine());
-                if (User_ans == 1)
+                if (User_ans == 0)
                 {
                     Console.WriteLine("You are correct!");
                     currentUser.Score += 10;
@@ -285,6 +346,7 @@ namespace Trivia_Stage1.UI
                     currentUser.Score -= 5;
                 }
             }
+
         }
         public void ShowProfile()
         {

@@ -70,6 +70,9 @@ INSERT INTO [subjectDB]
 INSERT INTO [subjectDB]
 ([SubjectID], [Subject]) VALUES
 (5, 'Ramon Highschool')
+INSERT INTO [subjectDB]
+([SubjectID], [Subject]) VALUES
+(6, 'Invalid')
 Go
 
 INSERT INTO [userRankDB]
@@ -120,6 +123,7 @@ INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [C
 INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
 (3, 4,5, 'Who is the principal', 'Hannah Daldi-Mandingo', 'Raheli Lizerovitz','Alex Leorian','Smadar Vechter');
 Go
+
 
 select * from userDB
 

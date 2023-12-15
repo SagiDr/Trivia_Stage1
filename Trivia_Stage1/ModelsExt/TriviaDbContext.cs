@@ -15,7 +15,7 @@ public partial class TriviaDbContext : DbContext
             UserMail = usermail,
             UserRankId = 2,
             Score = 0
-            
+
         };
 
         this.Entry(userDb).State = EntityState.Added;
@@ -26,9 +26,9 @@ public partial class TriviaDbContext : DbContext
 
     public UserDb Login(string password, string usermail)
     {
-        foreach(UserDb user in UserDbs)
+        foreach (UserDb user in UserDbs)
         {
-            if(user.Password == password && user.UserMail == usermail)
+            if (user.Password == password && user.UserMail == usermail)
             {
                 return user;
             }
@@ -38,12 +38,14 @@ public partial class TriviaDbContext : DbContext
 
     public void UpdatePlayer(UserDb p)
     {
-    Entry(p).State = EntityState.Modified;
-    SaveChanges();
+        Entry(p).State = EntityState.Modified;
+        SaveChanges();
     }
     public void EnterQustion(QuestionsDb Question)
     {
         Entry(Question).State = EntityState.Added;
         SaveChanges();
     }
+
+
 }
