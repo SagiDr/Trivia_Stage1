@@ -18,7 +18,6 @@ namespace Trivia_Stage1.UI
         private UserDb currentUser = null;
         public bool ShowLogin()
         {
-
             Console.WriteLine("Do you want to login? press Enter or anything else to continue If not, press (B) to go back");
             char c = Console.ReadKey(true).KeyChar;
 
@@ -29,14 +28,14 @@ namespace Trivia_Stage1.UI
                 string mail = Console.ReadLine();
                 while (mail == null)
                 {
-                    Console.WriteLine("write a password!");
+                    Console.WriteLine("Write a password!");
                     mail = Console.ReadLine();
                 }
                 Console.WriteLine("Enter password");
                 string pass = Console.ReadLine();
                 while (pass == null)
                 {
-                    Console.WriteLine("write a password!");
+                    Console.WriteLine("Write a password!");
                     pass = Console.ReadLine();
                 }
 
@@ -426,28 +425,28 @@ namespace Trivia_Stage1.UI
 
         //Private helper methodfs down here...
         private void CleareAndTtile(string title)
-                {
-                    Console.Clear();
-                    Console.WriteLine($"\t\t\t\t\t{title}");
-                    Console.WriteLine();
-                }
+        {
+             Console.Clear();
+             Console.WriteLine($"\t\t\t\t\t{title}");
+             Console.WriteLine();
+        }
 
-                private bool IsEmailValid(string emailAddress)
-                {
-                    var pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+        private bool IsEmailValid(string emailAddress)
+        {
+             var pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
 
-                    var regex = new Regex(pattern);
-                    return regex.IsMatch(emailAddress);
-                }
+             var regex = new Regex(pattern);
+             return regex.IsMatch(emailAddress);
+        }
 
-                private bool IsPasswordValid(string password)
-                {
-                    return password != null && password.Length >= 3;
-                }
+        private bool IsPasswordValid(string password)
+        {
+             return password != null && password.Length >= 3;
+        }
 
-                private bool IsNameValid(string name)
-                {
-                    return name != null && name.Length >= 3;
-                }      
+        private bool IsNameValid(string name)
+        {
+             return name != null && name.Length >= 3;
+        }      
     }
 }
