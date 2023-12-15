@@ -112,16 +112,24 @@ INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) 
             ('a@a.com', ' a ', 1, 5, 'aa');
 Go
 
+UPDATE userDB
+SET UserRankID = 3
+WHERE UserId = 5;
+
+UPDATE userDB
+SET Score = 100
+WHERE UserId = 2; 
+
 
 INSERT INTO [questionsDB] 
 ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
 (1, 1,3, 'When was Israel establish? ', '1948', '1946','1776','1952');
 INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(2, 2, 1, 'Who won the 2022 FIFA World Cup', 'Argentina', 'France','Algeria','Portugal');
+(2, 2, 1, 'Who won the 2022 FIFA World Cup?', 'Argentina', 'France','Algeria','Portugal');
 INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(2, 3,4, 'What kills you first in the vaccum of space', 'Lack of oxygen', 'The cold','Your blood boiling','Radiation');
+(2, 3,4, 'What kills you first in the vaccum of space?', 'Lack of oxygen', 'The cold','Your blood boiling','Radiation');
 INSERT INTO [questionsDB] ([QuestionStatusID], [UserID], [SubjectID], [Text], [CorrectAns],[WrongAns1],[WrongAns2],[WrongAns3]) VALUES 
-(3, 4,5, 'Who is the principal', 'Hannah Daldi-Mandingo', 'Raheli Lizerovitz','Alex Leorian','Smadar Vechter');
+(3, 4,5, 'Who is the principal', 'Hannah Daldi-Mandingo?', 'Raheli Lizerovitz','Alex Leorian','Smadar Vechter');
 Go
 
 

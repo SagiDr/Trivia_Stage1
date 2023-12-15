@@ -48,6 +48,9 @@ namespace Trivia_Stage1.UI
                 {
                     Console.WriteLine("Login Successful!");
                     this.currentUser = user;
+                    int delay = 1000;
+                    Thread.Sleep(delay);
+                    return true;
                 }
                 else
                 {
@@ -61,13 +64,7 @@ namespace Trivia_Stage1.UI
         }
         public bool ShowSignup()
         {
-
-            //A reference to the logged in user should be stored as a member variable
-            //in this class! Example:
             this.currentUser = null;
-
-            //Loop through inputs until a user/player is created or 
-            //user choose to go back to menu
             char c = ' ';
             while (c != 'B' && c != 'b' && this.currentUser == null)
             {
@@ -98,7 +95,6 @@ namespace Trivia_Stage1.UI
                     name = Console.ReadLine();
                 }
 
-
                 Console.WriteLine("Connecting to Server...");
 
                 try
@@ -112,12 +108,11 @@ namespace Trivia_Stage1.UI
                     Console.WriteLine(ex.Message);
                 }
 
-
                 Console.WriteLine("Press (B)ack to go back or any other key to signup again...");
                 c = Console.ReadKey(true).KeyChar;
             }
             //return true if signup suceeded!
-            return (false);
+            return (true);
         }
 
 
@@ -126,29 +121,25 @@ namespace Trivia_Stage1.UI
             Console.WriteLine("Do you want to manage the questions? If not, press (B) to go back, or anything else to continue");
             char c = Console.ReadKey(true).KeyChar;
             bool gate = true;
-            while (c != 'B' && c != 'b' && this.currentUser.UserRankId == 1 && gate)
+            while (c != 'B' && c != 'b' && gate)
             {
-                foreach (QuestionsDb q in context.QuestionsDbs)
-                {
-                    Console.WriteLine("Question Number : " + q.QuestionId);
-                    Console.WriteLine(q.Subject);
-                    Console.WriteLine(q.Text);
-                }
-
+                TriviaDbContext context = new TriviaDbContext();
+                QuestionsDb.PrintAllQuestions(context);
 
                 while (true)
                 {
                     Console.WriteLine("Would you like to Edit a question? Press (s) to skip " +
                     "or anything else to continue");
                     char sg = Console.ReadKey(true).KeyChar;
-                    if ((sg == 'S') || (sg == 's'))
+                    if ((sg == 'S') || (sg == 's')|| this.currentUser.UserRankId != 1)
                     {
                         break;
                     }
                     Console.WriteLine("Insert the question number of the question you would like to change");
                     int input = int.Parse(Console.ReadLine());
-                    QuestionsDb quest = null;
-                    foreach (QuestionsDb q in context.QuestionsDbs)
+                    QuestionsDb quest = null; 
+                    List<QuestionsDb> Quests = context.QuestionsDbs.Include(q => q.Subject).ToList();
+                    foreach (QuestionsDb q in Quests)
                     {
                         if (q.QuestionId == input)
                         {
@@ -156,14 +147,15 @@ namespace Trivia_Stage1.UI
                             break;
                         }
                     }
+                    quest = QuestionsDb.filter(context, (x, y) => x == y, input);
+
                     if (quest != null)
                         quest?.PrintQuestion();
                     else
                     {
                         Console.WriteLine("No Question Found");
                     }
-                    Console.WriteLine("What would you like to change? 1-[SubjectID],2-[Text],3-[CorrectAns]," +
-                        "4-[WrongAns1],5-[WrongAns2],6-[WrongAns3]");
+                    Console.WriteLine("What would you like to change? 1-[SubjectID],2-[Text],3-[CorrectAns]," + "4-[WrongAns1],5-[WrongAns2],6-[WrongAns3]");
                     int num = int.Parse(Console.ReadLine());
                     Console.WriteLine("What would you like to enter");
                     string str = Console.ReadLine();
@@ -206,10 +198,8 @@ namespace Trivia_Stage1.UI
                         }
                         else if (num == 2)
                             quest.Text = str;
-
                         else if (num == 3)
                             quest.CorrectAns = str;
-
                         else if (num == 4)
                             quest.WrongAns1 = str;
                         else if (num == 5)
@@ -217,14 +207,7 @@ namespace Trivia_Stage1.UI
                         else if (num == 6)
                             quest.WrongAns3 = str;
 
-                        foreach (QuestionsDb q in context.QuestionsDbs)
-                        {
-                            if (q.QuestionId == quest.QuestionId)
-                            {
-                                quest = q;
-                                break;
-                            }
-                        }
+                        quest = QuestionsDb.filter(context, (x, y) => x == y, quest.QuestionId);
                     }
                 }
                 CleareAndTtile("");
@@ -239,60 +222,8 @@ namespace Trivia_Stage1.UI
                         gate = false;
                         break;
                     }
-                    string text, corAns, wAns1, wAns2, wAns3;
-                    int subId;
-
-
-                    Console.WriteLine("Enter a question's subject");
-                    string str = Console.ReadLine();
-                    if (str == "Sport")
-                    {
-                        subId = 1;
-                    }
-                    else if (str == "Politics")
-                    {
-                        subId = 2;
-                    }
-                    else if (str == "History")
-                    {
-
-                        subId = 3;
-                    }
-                    else if (str == "Science")
-                    {
-
-                        subId = 4;
-                    }
-                    else if (str == "Ramon Highschool")
-                    {
-                        subId = 5;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid Subject");
-                        subId = 6;
-                    }
-
-
-
-                    Console.WriteLine("Enter the question itself");
-                    text = Console.ReadLine();
-
-                    Console.WriteLine("Enter the correct answer");
-                    corAns = Console.ReadLine();
-
-                    Console.WriteLine("Enter the first wrong answer");
-                    wAns1 = Console.ReadLine();
-
-                    Console.WriteLine("Enter the second wrong answer");
-                    wAns2 = Console.ReadLine();
-
-                    Console.WriteLine("Enter the third wrong answer");
-                    wAns3 = Console.ReadLine();
-
                     QuestionsDb q = new QuestionsDb();
-                    q.AddQuestion(currentUser, text, corAns, wAns1, wAns2, wAns3, subId, context);
-
+                    q.AddQuestion(currentUser, context);
                 }
             }
         }
@@ -329,23 +260,40 @@ namespace Trivia_Stage1.UI
         public void ShowGame()
         {
             TriviaDbContext db = new TriviaDbContext();
-            foreach (QuestionsDb q in context.QuestionsDbs)
+            List<QuestionsDb> Quests = context.QuestionsDbs.Include(q => q.Subject).ToList();
+            int counter = 0;
+            foreach (QuestionsDb q in Quests)
             {
-                q.gamePrintQuestion();
+                counter++;
+                CleareAndTtile("GAME");
+                Console.WriteLine("Name:" + currentUser.UserName + '\n' + "Points: " + currentUser.Score);//מציג את שם השחקן ואת מספר הנקודות שיש לו
+                int num = q.gamePrintQuestion(counter,Quests.Count());
                 Console.WriteLine("Enter The num of your Ans: ");
                 int User_ans = int.Parse(Console.ReadLine());
-                if (User_ans == 0)
+                if (User_ans == num)
                 {
                     Console.WriteLine("You are correct!");
                     currentUser.Score += 10;
+                    if (currentUser.Score == 100)
+                    {
+                        if (context.canAddQuestion(currentUser))
+                        {
+                            currentUser.Score -= 100;
+                            
+                        }
+                    }
                 }
                 else
                 {
                     Console.WriteLine("You are incorrect!");
-                    currentUser.Score -= 5;
+                    if (currentUser.Score != 0)
+                    {
+                        currentUser.Score -= 5;
+                    }
                 }
+                int delay = 1000;
+                Thread.Sleep(delay);
             }
-
         }
         public void ShowProfile()
         {
@@ -403,7 +351,7 @@ namespace Trivia_Stage1.UI
                         Console.Write("password must be at least 4 characters! Please try again: ");
                         password = Console.ReadLine();
                     }
-                    this.currentUser.UserName = password;
+                    this.currentUser.Password = password;
                     updated = true;
                 }
                 if (updated == true)

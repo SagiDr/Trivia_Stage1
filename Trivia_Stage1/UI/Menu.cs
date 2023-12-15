@@ -38,7 +38,7 @@ namespace Trivia_Stage1.UI
             while (!exit) //Loop until user press the exit option (last option)
             {
                 base.Show();
-                Console.WriteLine("\tMenu");
+                Console.WriteLine("");
                 int count = 1;
                 foreach (MenuItem item in items)
                 {

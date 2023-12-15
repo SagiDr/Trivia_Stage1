@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using Microsoft.EntityFrameworkCore;
+using Trivia_Stage1.UI;
 
 namespace Trivia_Stage1.Models;
 
@@ -47,5 +49,31 @@ public partial class TriviaDbContext : DbContext
         SaveChanges();
     }
 
-
+    public bool canAddQuestion(UserDb U)
+    {
+        bool b = true;
+        while (b)
+        {
+            string wants;
+            if (U.UserRankId == 1 || U.Score != 100)
+            {
+                break;
+            }
+            Console.WriteLine("Do you want to add another question? (Yes/No)");
+            wants = Console.ReadLine();
+            if (wants == "Yes" || wants == "yes" || wants == "y")
+            {
+                return true;
+            }
+            else if (wants == "No" || wants == "no" || wants == "n")
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Please answer a valid answer");
+            }
+        }
+        return false;
+    }
 }
