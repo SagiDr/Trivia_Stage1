@@ -16,36 +16,48 @@ public partial class QuestionsDb
         int subId = 6;
 
 
-        Console.WriteLine("Enter a question's subject");
-        string str = Console.ReadLine();
-        if (str == "Sport")
+        foreach (SubjectDb s in context.SubjectDbs)
         {
-            subId = 1;
+            if (s.SubjectId != 6)
+            {
+                Console.WriteLine(s.Subject);
+            }
         }
-        else if (str == "Politics")
+        while (true)
         {
-            subId = 2;
+            Console.WriteLine("Enter a question's subject from the list ");
+            string str = Console.ReadLine();
+            if (str == "Sport")
+            {
+                subId = 1;
+                break;
+            }
+            else if (str == "Politics")
+            {
+                subId = 2;
+                break;
+            }
+            else if (str == "History")
+            {
+                subId = 3;
+                break;
+            }
+            else if (str == "Science")
+            {
+                subId = 4;
+                break;
+            }
+            else if (str == "Ramon Highschool")
+            {
+                subId = 5;
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid Subject");
+                subId = 6;
+            }
         }
-        else if (str == "History")
-        {
-
-            subId = 3;
-        }
-        else if (str == "Science")
-        {
-
-            subId = 4;
-        }
-        else if (str == "Ramon Highschool")
-        {
-            subId = 5;
-        }
-        else
-        {
-            Console.WriteLine("Invalid Subject");
-            subId = 6;
-        }
-
         Console.WriteLine("Enter the question itself");
         text = Console.ReadLine();
 
@@ -72,14 +84,20 @@ public partial class QuestionsDb
             status = 2;
         }
 
+        user.questions =+ user.questions;
+        if (user.questions == 10 && user.UserRankId == 3)
+        {
+            user.UserRankId = 2;
+            Console.WriteLine("You are now a Master and can manage questions");
+        }
 
         QuestionsDb Q = new QuestionsDb();
         {
             Q.Text = text;
-            Q.CorrectAns = CorrectAns;
-            Q.WrongAns1 = WrongAns1;
-            Q.WrongAns2 = WrongAns2;
-            Q.WrongAns3 = WrongAns3;
+            Q.CorrectAns = corAns;
+            Q.WrongAns1 = wAns1;
+            Q.WrongAns2 = wAns2;
+            Q.WrongAns3 = wAns3;
             Q.SubjectId = subId;
             Q.QuestionStatusId = status;
             Q.UserId = user.UserId;

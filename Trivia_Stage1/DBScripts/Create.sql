@@ -31,11 +31,15 @@ Create TABLE userDB (
 [UserName] NCHAR (20) NOT NULL,
 [UserRankID] INT NOT NULL,
 [Score] INT NOT NULL,
+[questions] INT NOT NULL,
 [Password] NVARCHAR (20) NOT NULL,
 Primary Key ([USerID]),
 FOREIGN KEY ([UserRankID]) REFERENCES userRankDB([UserRankID])
 );
 Go
+
+ALTER TABLE userDB
+ADD [questions] INT;
 
 Create TABLE questionsDB (
 [QuestionID] INT Identity(1,1) NOT NULL,
@@ -97,24 +101,27 @@ INSERT INTO [questionStatusDB]
 (3, 'Not Accpted')
 Go
 
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score], [Password]) VALUES 
-            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 0, 'Amitay1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score], [Password],[questions]) VALUES 
+            ('amitayzic12@gmail.com', 'amitayTHEKING ', 1, 0, 'Amitay1',0);
 
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 0, 'Sagi1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password],[questions]) VALUES 
+            ('sagidrori@gmail.com', ' sagiTHEKING ', 2, 0, 'Sagi1',0);
 
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 0, 'Dayan1');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password],[questions]) VALUES 
+            ('roeydayan@gmail.com', ' RoeyTHEKING ', 2, 0, 'Dayan1',0);
 
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('amithacham@gmail.com', ' amitTHEKING ', 1, 0, 'Amit1');
-INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password]) VALUES 
-            ('a@a.com', ' a ', 1, 0, 'aa');
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password],[questions]) VALUES 
+            ('amithacham@gmail.com', ' amitTHEKING ', 1, 0, 'Amit1',0);
+INSERT INTO [userDB] ([UserMail], [UserName], [UserRankID], [Score],[Password],[questions]) VALUES 
+            ('a@a.com', ' a ', 1, 0, 'aa',0);
 Go
 
 UPDATE userDB
-SET Score = 0;
+SET questions = 0;
 
+UPDATE userDB
+SET questions = 9
+WHERE UserId = 5;
 
 UPDATE userDB
 SET Score = 100

@@ -213,13 +213,14 @@ namespace Trivia_Stage1.UI
                 while (true)
                 {
                    Console.WriteLine("Would you like to add a question? Press (b) to get back" + " or anything else to continue");
-                   char sg = Console.ReadKey(true).KeyChar; 
-                   if ((sg == 'B') || (sg == 'b'))
-                   {
-                       gate = false;
-                       break;
-                   }
-                   QuestionsDb q = new QuestionsDb();
+                   char sg = Console.ReadKey(true).KeyChar;
+                    if ((sg == 'B') || (sg == 'b'))
+                    {
+                        gate = false;
+                        break;
+                    }
+
+                    QuestionsDb q = new QuestionsDb();
                    q.AddQuestion(currentUser, context);
                 }
             }
@@ -310,9 +311,10 @@ namespace Trivia_Stage1.UI
                 Console.WriteLine($"Rank: {RankName(currentUser)}");
                 Console.WriteLine($"Name: {this.currentUser.UserName}");
                 Console.WriteLine($"Mail: {this.currentUser.UserMail}");
-                Console.WriteLine($"Passworde: {this.currentUser.Password}");
+                Console.WriteLine($"Password: {this.currentUser.Password}");
                 Console.WriteLine($"Player Id: {this.currentUser.UserId}");
                 Console.WriteLine($"Score: {this.currentUser.Score}");
+                Console.WriteLine($"Questions' number: {this.currentUser.questions}");
 
                 Console.WriteLine("Update (M)ail, (N)ame, (P)assword, (B)ack... press Enter every time your update somthing");
                 c = Console.ReadKey(true).KeyChar;

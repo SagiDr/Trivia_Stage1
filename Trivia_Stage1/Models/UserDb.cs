@@ -49,4 +49,7 @@ public partial class UserDb
     [ForeignKey("UserRankId")]
     [InverseProperty("UserDbs")]
     public virtual UserRankDb UserRank { get; set; } = null!;
+
+    [Column("questions")]
+    public int questions { get; set; }
 }
